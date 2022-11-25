@@ -1,0 +1,30 @@
+# classe HTTP_request
+
+## but
+
+- envoie d'une requete http vers les test server
+  - Actix lang = rust
+
+  - Spring boot = java
+
+- support des methods get, post , patch, ...
+
+## fonctionnement
+
+---
+    GET / HTTP/1.1
+    header 1 : value
+    header 2 : value
+
+    {body}
+---
+
+## 25 Nov 2022
+
+- classe HTTP_request
+
+- classe HTTP_requestBuilder
+
+- classe HTTP_Header
+
+- enum HTTP_Body
