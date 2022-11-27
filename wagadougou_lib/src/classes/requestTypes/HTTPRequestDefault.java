@@ -1,12 +1,12 @@
 package classes.requestTypes;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -15,41 +15,27 @@ import classes.headers.HTTPHeader;
 import classes.headers.HTTPRequestHeader;
 import classes.headers.HTTPResponseHeader;
 import classes.responseTypes.HTTPResponse;
-import classes.utils.HTTPQueryParam;
-import classes.utils.HTTPQueryParams;
-import classes.utils.WGDGUrl_Base;
-import enums.HTTPMethods;
-import enums.HTTPVersion;
 
 public class HTTPRequestDefault extends HTTPRequest {
-
-
-
+    
     public HTTPRequestDefault() {
     }
 
-    public HTTPRequestDefault(WGDGUrl_Base target, HTTPRequestHeader requestHeader, ArrayList<HTTPHeader> headers,
-            byte[] body) {
-        super(target, requestHeader, headers, body);
+    public HTTPRequestDefault(HTTPRequestHeader requestHeader, ArrayList<HTTPHeader> headers, byte[] body) {
+        super(requestHeader, headers, body);
     }
 
-    public HTTPRequestDefault(WGDGUrl_Base target, ArrayList<HTTPHeader> headers) {
-        super(target, headers);
+    public HTTPRequestDefault(ArrayList<HTTPHeader> headers) {
+        super(headers);
     }
 
-    public HTTPRequestDefault(WGDGUrl_Base target) {
-        super(target);
-    }
-
-    public HTTPRequestDefault(String host, int port, String path, String method) {
-        super(host, port, path, method);
+    public HTTPRequestDefault(String path, String method) {
+        super(path, method);
     }
 
     @Override
-    public HTTPResponse send() throws Exception {
+    public HTTPResponse send(Socket target) throws Exception {
         // TODO Auto-generated method stub
-
-        Socket target = new Socket(this.getTarget().getHostname(), this.getTarget().getPort());
 
         PrintStream out = new PrintStream(target.getOutputStream());
 
@@ -60,8 +46,6 @@ public class HTTPRequestDefault extends HTTPRequest {
                 out.println(header);
             }
         }
-        
-
         out.println();
 
         if(this.getBody() != null){
@@ -85,11 +69,9 @@ public class HTTPRequestDefault extends HTTPRequest {
             }else{
                 body.write(response_string.get(i).getBytes());
             }
-            
         }
         response.setBody(body.toByteArray());
-        target.close();
+        response.setTarget(target.getInetAddress());
         return response;
     }
-    
 }

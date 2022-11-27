@@ -43,4 +43,5 @@ public class HTTPResponseHeader {
         // TODO Auto-generated method stub
         return this.getVersion() + " " + this.getStatus_code() + " " + this.getResult();
     }
+    
 }

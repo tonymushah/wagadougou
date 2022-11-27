@@ -1,5 +1,6 @@
 package classes.requestTypes;
 
+import java.net.Socket;
 import java.util.ArrayList;
 
 import classes.headers.HTTPHeader;
@@ -23,7 +24,6 @@ public abstract class HTTPRequest {
     private HTTPRequestHeader requestHeader;
     private ArrayList<HTTPHeader> headers;
     private byte[] body;
-    private WGDGUrl_Base target;
     public HTTPRequestHeader getRequestHeader() {
         return requestHeader;
     }
@@ -42,33 +42,20 @@ public abstract class HTTPRequest {
     public void setBody(byte[] body) {
         this.body = body;
     }
-    public WGDGUrl_Base getTarget() {
-        return target;
-    }
-    public void setTarget(WGDGUrl_Base target) {
-        this.target = target;
-    }
     public HTTPRequest() {
+        this.setBody(null);
         this.setHeaders(new ArrayList<HTTPHeader>());
         this.setRequestHeader(new HTTPRequestHeader());
     }
-    public HTTPRequest(WGDGUrl_Base target, HTTPRequestHeader requestHeader, ArrayList<HTTPHeader> headers, byte[] body) {
+    public HTTPRequest(HTTPRequestHeader requestHeader, ArrayList<HTTPHeader> headers, byte[] body) {
         this.setBody(body);
         this.setHeaders(headers);
         this.setRequestHeader(requestHeader);
-        this.setTarget(target);
     }
-    public HTTPRequest(WGDGUrl_Base target, ArrayList<HTTPHeader> headers) {
+    public HTTPRequest(ArrayList<HTTPHeader> headers) {
         this.setBody(null);
         this.setHeaders(headers);
         this.setRequestHeader(new HTTPRequestHeader());
-        this.setTarget(target);
-    }
-    public HTTPRequest(WGDGUrl_Base target) {
-        this.setBody(null);
-        this.setHeaders(new ArrayList<HTTPHeader>());
-        this.setRequestHeader(new HTTPRequestHeader());
-        this.setTarget(target);
     }
     public void addHeader(HTTPHeader header){
         this.headers.add(header);
@@ -97,10 +84,9 @@ public abstract class HTTPRequest {
     public void setHTTPVersion(HTTPVersion version){
         this.requestHeader.setVersion(version);
     }
-    public HTTPRequest(String host, int port, String path, String method){
-        this.setTarget(new WGDGUrl_Base(host, port));
+    public HTTPRequest(String path, String method){
         this.setRequestHeader(new HTTPRequestHeader(method, HTTPVersion.HTTP1_1, path));
         this.setHeaders(new ArrayList<HTTPHeader>());
     }
-    public abstract HTTPResponse send() throws Exception;
+    public abstract HTTPResponse send(Socket target) throws Exception;
 }

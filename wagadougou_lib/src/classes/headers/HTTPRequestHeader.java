@@ -58,26 +58,15 @@ public class HTTPRequestHeader {
         this.setPath(path);
         this.setVersion(version);
     }
-    public String get_VersionString() throws Exception{
-        switch (this.getVersion()) {
-            case HTTP0_9:
-                return "HTTP/0.9";
-        
-            case HTTP1_1:
-                return "HTTP/1.1";
-            
-            default:
-                throw new Exception("Unexcepted value of Method");
-        }
-    }
+    
     @Override
     public String toString() {
         // TODO Auto-generated method stub
         try {
             if(queryParams.isEmpty()){
-                return this.getMethod() + " " + this.getPath() + " " + this.get_VersionString();
+                return this.getMethod() + " " + this.getPath() + " " + this.version;
             }else{
-                return this.getMethod() + " " + this.getPath() + "?" + this.getQueryParams() + " " + this.get_VersionString();
+                return this.getMethod() + " " + this.getPath() + "?" + this.getQueryParams() + " " + this.version;
             }
         } catch (Exception e) {
             //TODO: handle exception
