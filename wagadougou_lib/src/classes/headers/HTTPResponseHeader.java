@@ -38,4 +38,9 @@ public class HTTPResponseHeader {
         this.setStatus_code(Integer.parseInt(splited[1]));
         this.setResult(splited[2]);
     }
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return this.getVersion() + " " + this.getStatus_code() + " " + this.getResult();
+    }
 }

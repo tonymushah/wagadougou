@@ -29,6 +29,6 @@ public class HTTPHeader {
     }
     public static HTTPHeader valueOf(String input){
         String[] to_uses = input.split(":", 2);
-        return new HTTPHeader(to_uses[0], to_uses[1]);
+        return new HTTPHeader(to_uses[0], to_uses[1].replaceFirst("\s", ""));
     }
 }

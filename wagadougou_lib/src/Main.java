@@ -2,9 +2,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import classes.HTTPRequest;
-import classes.HTTPResponse;
 import classes.headers.HTTPHeader;
+import classes.requestTypes.HTTPRequest;
+import classes.requestTypes.HTTPRequestDefault;
+import classes.responseTypes.HTTPResponse;
 
 /**
  * Main
@@ -18,19 +19,11 @@ public class Main {
 > Accept: *
  */
     public static void main(String[] args) throws Exception {
-        HTTPRequest req = new HTTPRequest();
-        HTTPHeader[] headers = {
-            new HTTPHeader("Host", "localhost:8082"),
-            new HTTPHeader("User-Agent", "wagadougou/v0.0.1"),
-            new HTTPHeader("x-random", "hellooooo world")
-        };
-        ArrayList<HTTPHeader> list = new ArrayList<>();
-        for (HTTPHeader header : headers) {
-            list.add(header);
+        HTTPResponse response = (new HTTPRequestDefault("localhost", 8082, "/otny", "GET")).send();
+        System.out.println(response.getResponseHeader());
+        for (HTTPHeader header : response.getHeaders()) {
+            System.out.println(header);
         }
-        req.setTo_send(new URL("http://127.0.0.1:8082"));
-        req.setHeaders(list);
-        HTTPResponse response = req.send();
-        System.out.println(response.getResponseHeader().getStatus_code());
+
     }
 }
