@@ -1,20 +1,15 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
-import java.net.Proxy;
-import java.net.Socket;
-import java.net.URL;
-import java.util.ArrayList;
 
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
-
+import classes.clients.HTTPClient;
 import classes.headers.HTTPHeader;
 import classes.requestTypes.HTTPRequest;
-import classes.requestTypes.HTTPRequestDefault;
+import classes.requestTypes.HTTPRequestWTime;
+import classes.requestTypes.InsomniaRequest;
 import classes.responseTypes.HTTPResponse;
-import enums.HTTPVersion;
+import classes.responseTypes.HTTPResponseWTime;
+import classes.responseTypes.InsomniaResponse;
+import enums.HTTPMethods;
 
 /**
  * Main
@@ -27,25 +22,26 @@ public class Main {
 > x-random: hellooooo world
 > Accept: *
  */
-    public static void main(String[] args) throws Exception {
-        SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
-        
-        SSLSocket target = (SSLSocket) factory.createSocket("api.mangadex.org", 443);
-        HTTPRequest request = new HTTPRequestDefault("/manga", "GET");
-        request.addHeader("Host", "api.mangadex.org");
-        request.addHeader("user-agent", "wagadougou/2022.0.0.1");
-        request.addHeader("accept", "*/*");
-        request.setHTTPVersion(HTTPVersion.HTTP1_1);
-        target.startHandshake();
-        HTTPResponse response2 = request.send(target);
-        target.close();
-        System.out.println(response2.getResponseHeader());
-        for (HTTPHeader header : response2.getHeaders()) {
+    public static void main(String[] args) throws Exception{
+        HTTPClient client = new HTTPClient("localhost", 8081);
+        InsomniaRequest httpRequest = new InsomniaRequest();
+        httpRequest.addHeader("Host", "localhost:8081");
+        httpRequest.addHeader("User-Agent", "wagadoudou/2022.0.0.1");
+        httpRequest.setMethod(HTTPMethods.POST);
+        httpRequest.setPath("/testPost");
+        byte[] body_req = "dasdkhasidsabdka".getBytes();
+        httpRequest.addHeader("Content-Type", "text/plain");
+        httpRequest.addHeader("Content-Length", "" + body_req.length);
+        httpRequest.setBody(body_req);
+        InsomniaResponse response = (InsomniaResponse) client.send(httpRequest);
+        System.out.println(response.getResponseHeader());
+        System.out.println("Duration : " + response.getDuration() + " ms");
+        for (HTTPHeader header : response.getHeaders()) {
             System.out.println(header);
         }
-        for (String line : (new BufferedReader(new InputStreamReader(response2.getBodyStream()))).lines().toList()) {
-            System.out.println(line);
+        BufferedReader body = new BufferedReader(new InputStreamReader(response.getBodyStream()));
+        for (String string : body.lines().toList()) {
+            System.out.println(string);
         }
-        
     }
 }

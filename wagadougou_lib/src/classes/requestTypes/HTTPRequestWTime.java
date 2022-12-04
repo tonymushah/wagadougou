@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -13,29 +14,31 @@ import classes.headers.HTTPHeader;
 import classes.headers.HTTPRequestHeader;
 import classes.headers.HTTPResponseHeader;
 import classes.responseTypes.HTTPResponse;
+import classes.responseTypes.HTTPResponseWTime;
 
-public class HTTPRequestDefault extends HTTPRequest {
-    
-    public HTTPRequestDefault() {
+public class HTTPRequestWTime extends HTTPRequest {
+
+    public HTTPRequestWTime() {
         super();
     }
 
-    public HTTPRequestDefault(HTTPRequestHeader requestHeader, ArrayList<HTTPHeader> headers, byte[] body) {
+    public HTTPRequestWTime(HTTPRequestHeader requestHeader, ArrayList<HTTPHeader> headers, byte[] body) {
         super(requestHeader, headers, body);
     }
 
-    public HTTPRequestDefault(ArrayList<HTTPHeader> headers) {
+    public HTTPRequestWTime(ArrayList<HTTPHeader> headers) {
         super(headers);
     }
 
-    public HTTPRequestDefault(String path, String method) {
+    public HTTPRequestWTime(String path, String method) {
         super(path, method);
     }
 
     @Override
     public HTTPResponse send(Socket target) throws Exception {
         // TODO Auto-generated method stub
-
+        HTTPResponseWTime response = new HTTPResponseWTime();
+        response.setStartTime((new Date()).getTime());
         PrintStream out = new PrintStream(target.getOutputStream());
 
         out.println(this.getRequestHeader());
@@ -53,7 +56,6 @@ public class HTTPRequestDefault extends HTTPRequest {
         }
         out.flush();
         target.shutdownOutput();
-        HTTPResponse response = new HTTPResponse();
         BufferedReader in =  new BufferedReader(new InputStreamReader(target.getInputStream()));
         Stream<String> getted = in.lines();
         boolean is_at_body = false;
@@ -69,12 +71,15 @@ public class HTTPRequestDefault extends HTTPRequest {
                     response.addHeader(HTTPHeader.valueOf(response_string.get(i)));
                 }else{
                     body.write(response_string.get(i).getBytes());
+                    body.write("\n".getBytes());
                 }
             }
             
         }
         response.setBody(body.toByteArray());
         response.setTarget(target.getInetAddress());
+        response.setEndTime((new Date()).getTime());
         return response;
     }
+    
 }

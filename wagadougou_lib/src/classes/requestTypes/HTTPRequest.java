@@ -8,7 +8,6 @@ import classes.headers.HTTPRequestHeader;
 import classes.responseTypes.HTTPResponse;
 import classes.utils.HTTPQueryParam;
 import classes.utils.HTTPQueryParams;
-import classes.utils.WGDGUrl_Base;
 import enums.HTTPMethods;
 import enums.HTTPVersion;
 
@@ -89,4 +88,7 @@ public abstract class HTTPRequest {
         this.setHeaders(new ArrayList<HTTPHeader>());
     }
     public abstract HTTPResponse send(Socket target) throws Exception;
+    public static HTTPRequest getDefault(){
+        return new HTTPRequestDefault();
+    }
 }

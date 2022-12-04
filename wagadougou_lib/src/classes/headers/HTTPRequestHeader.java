@@ -64,9 +64,9 @@ public class HTTPRequestHeader {
         // TODO Auto-generated method stub
         try {
             if(queryParams.isEmpty()){
-                return this.getMethod() + " " + this.getPath() + " " + this.version;
+                return this.getMethod() + " " + this.getPath() + " " + this.getVersion();
             }else{
-                return this.getMethod() + " " + this.getPath() + "?" + this.getQueryParams() + " " + this.version;
+                return this.getMethod() + " " + this.getPath() + "?" + this.getQueryParams() + " " + this.getVersion();
             }
         } catch (Exception e) {
             //TODO: handle exception
