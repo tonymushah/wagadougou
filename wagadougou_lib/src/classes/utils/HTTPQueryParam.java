@@ -10,14 +10,16 @@ public class HTTPQueryParam {
     public String getName() {
         return name;
     }
-    public void setName(String name) {
+    public HTTPQueryParam setName(String name) {
         this.name = name;
+        return this;
     }
     public String getValue() throws UnsupportedEncodingException {
         return URLEncoder.encode(this.value, Charset.availableCharsets().firstKey());
     }
-    public void setValue(String value) {
+    public HTTPQueryParam setValue(String value) {
         this.value = value;
+        return this;
     }
     public HTTPQueryParam() {
     }

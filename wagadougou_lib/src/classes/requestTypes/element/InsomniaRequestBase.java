@@ -1,4 +1,4 @@
-package classes.requestTypes;
+package classes.requestTypes.element;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -6,54 +6,65 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
 import classes.headers.HTTPHeader;
 import classes.headers.HTTPRequestHeader;
 import classes.headers.HTTPResponseHeader;
+import classes.requestTypes.base.HTTPRequestElement;
 import classes.responseTypes.HTTPResponse;
+import classes.responseTypes.InsomniaResponse;
 
-public class HTTPRequestDefault extends HTTPRequest {
-    
-    public HTTPRequestDefault() {
+public class InsomniaRequestBase extends HTTPRequestElement {
+    public InsomniaRequestBase() {
         super();
     }
 
-    public HTTPRequestDefault(HTTPRequestHeader requestHeader, ArrayList<HTTPHeader> headers, byte[] body) {
+    public InsomniaRequestBase(HTTPRequestHeader requestHeader, ArrayList<HTTPHeader> headers, byte[] body) {
         super(requestHeader, headers, body);
     }
 
-    public HTTPRequestDefault(ArrayList<HTTPHeader> headers) {
+    public InsomniaRequestBase(ArrayList<HTTPHeader> headers) {
         super(headers);
     }
 
-    public HTTPRequestDefault(String path, String method) {
+    public InsomniaRequestBase(String path, String method) {
         super(path, method);
     }
 
     @Override
     public HTTPResponse send(Socket target) throws Exception {
         // TODO Auto-generated method stub
-
+        InsomniaResponse response = new InsomniaResponse();
+        response.setStartTime((new Date()).getTime());
+        PrintStream timeline = response.getTimeLine_PrintStream();
         PrintStream out = new PrintStream(target.getOutputStream());
 
+        timeline.println("// sending request");
         out.println(this.getRequestHeader());
+        timeline.println(this.getRequestHeader());
+
         //System.out.println(this.getRequestHeader());
 
         if(this.getHeaders() != null){
             for (HTTPHeader header : this.getHeaders()) {
                 out.println(header);
+                timeline.println(header);
             }
         }
         out.println();
+        timeline.println();
 
         if(this.getBody() != null){
             out.writeBytes(this.getBody());
         }
+        timeline.println("// flushing output stream");
         out.flush();
+        timeline.println("// shuting down output stream");
         target.shutdownOutput();
-        HTTPResponse response = new HTTPResponse();
+        timeline.println("// retreiving response");
         BufferedReader in =  new BufferedReader(new InputStreamReader(target.getInputStream()));
         Stream<String> getted = in.lines();
         boolean is_at_body = false;
@@ -64,17 +75,24 @@ public class HTTPRequestDefault extends HTTPRequest {
                 is_at_body = true;
             }else{
                 if(i == 0){
-                    response.setResponseHeader(new HTTPResponseHeader(response_string.get(i)));
+                    HTTPResponseHeader responseHeader= new HTTPResponseHeader(response_string.get(i));
+                    response.setResponseHeader(responseHeader);
+                    timeline.println(responseHeader);
                 }else if(i != 0 && is_at_body == false){
-                    response.addHeader(HTTPHeader.valueOf(response_string.get(i)));
+                    HTTPHeader header = HTTPHeader.valueOf(response_string.get(i));
+                    response.addHeader(header);
+                    timeline.println(header);
                 }else{
+                    timeline.println(response_string.get(i));
                     body.write(response_string.get(i).getBytes());
+                    body.write("\n".getBytes());
                 }
             }
             
         }
         response.setBody(body.toByteArray());
         response.setTarget(target.getInetAddress());
+        response.setEndTime((new Date()).getTime());
         return response;
     }
 }

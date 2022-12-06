@@ -1,10 +1,11 @@
-package classes.requestTypes;
+package classes.requestTypes.base;
 
 import java.net.Socket;
 import java.util.ArrayList;
 
 import classes.headers.HTTPHeader;
 import classes.headers.HTTPRequestHeader;
+import classes.requestTypes.element.HTTPRequestDefault;
 import classes.responseTypes.HTTPResponse;
 import classes.utils.HTTPQueryParam;
 import classes.utils.HTTPQueryParams;
@@ -26,20 +27,23 @@ public abstract class HTTPRequest {
     public HTTPRequestHeader getRequestHeader() {
         return requestHeader;
     }
-    public void setRequestHeader(HTTPRequestHeader requestHeader) {
+    public HTTPRequest setRequestHeader(HTTPRequestHeader requestHeader) {
         this.requestHeader = requestHeader;
+        return this;
     }
     public ArrayList<HTTPHeader> getHeaders() {
         return headers;
     }
-    public void setHeaders(ArrayList<HTTPHeader> headers) {
+    public HTTPRequest setHeaders(ArrayList<HTTPHeader> headers) {
         this.headers = headers;
+        return this;
     }
     public byte[] getBody() {
         return body;
     }
-    public void setBody(byte[] body) {
+    public HTTPRequest setBody(byte[] body) {
         this.body = body;
+        return this;
     }
     public HTTPRequest() {
         this.setBody(null);
@@ -56,32 +60,41 @@ public abstract class HTTPRequest {
         this.setHeaders(headers);
         this.setRequestHeader(new HTTPRequestHeader());
     }
-    public void addHeader(HTTPHeader header){
+    public HTTPRequest addHeader(HTTPHeader header){
         this.headers.add(header);
+        return this;
     }
-    public void addHeader(String name, String value){
+    public HTTPRequest addHeader(String name, String value){
         this.headers.add(new HTTPHeader(name, value));
+        return this;
     }
-    public void setPath(String path){
+    public HTTPRequest setPath(String path){
         this.requestHeader.setPath(path);
+        return this;
     }
-    public void setMethod(String method){
+    public HTTPRequest setMethod(String method){
         this.requestHeader.setMethod(method);
+        return this;
     }
-    public void setMethod(HTTPMethods method){
+    public HTTPRequest setMethod(HTTPMethods method){
         this.requestHeader.setMethod(method);
+        return this;
     }
-    public void setQueryParams(HTTPQueryParams queryParams){
+    public HTTPRequest setQueryParams(HTTPQueryParams queryParams){
         this.requestHeader.setQueryParams(queryParams);
+        return this;
     }
-    public void addQueryParams(HTTPQueryParam queryParam){
+    public HTTPRequest addQueryParams(HTTPQueryParam queryParam){
         this.requestHeader.getQueryParams().add(queryParam);
+        return this;
     }
-    public void addQueryParams(String name, String value){
+    public HTTPRequest addQueryParams(String name, String value){
         this.requestHeader.getQueryParams().add(new HTTPQueryParam(name, value));
+        return this;
     }
-    public void setHTTPVersion(HTTPVersion version){
+    public HTTPRequest setHTTPVersion(HTTPVersion version){
         this.requestHeader.setVersion(version);
+        return this;
     }
     public HTTPRequest(String path, String method){
         this.setRequestHeader(new HTTPRequestHeader(method, HTTPVersion.HTTP1_1, path));

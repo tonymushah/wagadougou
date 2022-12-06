@@ -13,8 +13,9 @@ public class HTTPResponseWTimeline extends HTTPResponse {
         return timeline;
     }
 
-    public void setTimeline(OutputStream timeline) {
+    public HTTPResponseWTimeline setTimeline(OutputStream timeline) {
         this.timeline = timeline;
+        return this;
     }
     public PrintStream getTimeLine_PrintStream(){
         return new PrintStream(this.timeline);

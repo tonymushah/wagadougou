@@ -7,8 +7,8 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
 import classes.headers.HTTPHeader;
-import classes.requestTypes.HTTPRequest;
-import classes.requestTypes.HTTPRequestDefault;
+import classes.requestTypes.base.HTTPRequest;
+import classes.requestTypes.element.HTTPRequestDefault;
 import classes.responseTypes.HTTPResponse;
 import enums.HTTPVersion;
 

@@ -1,4 +1,4 @@
-package classes.requestTypes;
+package classes.requestTypes.element;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -12,10 +12,11 @@ import java.util.stream.Stream;
 import classes.headers.HTTPHeader;
 import classes.headers.HTTPRequestHeader;
 import classes.headers.HTTPResponseHeader;
+import classes.requestTypes.base.HTTPRequestElement;
 import classes.responseTypes.HTTPResponse;
 import classes.responseTypes.HTTPResponseWTimeline;
 
-public class HTTPRequestWTimeline extends HTTPRequest {
+public class HTTPRequestWTimeline extends HTTPRequestElement {
     public HTTPRequestWTimeline() {
         super();
     }

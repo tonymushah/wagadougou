@@ -1,11 +1,14 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Date;
 
 import classes.clients.HTTPClient;
 import classes.headers.HTTPHeader;
-import classes.requestTypes.HTTPRequest;
-import classes.requestTypes.HTTPRequestWTime;
-import classes.requestTypes.InsomniaRequest;
+import classes.misc.RequestFolder;
+import classes.requestTypes.base.HTTPRequest;
+import classes.requestTypes.base.HTTPRequestElement;
+import classes.requestTypes.element.HTTPRequestWTime;
+import classes.requestTypes.element.InsomniaRequestBase;
 import classes.responseTypes.HTTPResponse;
 import classes.responseTypes.HTTPResponseWTime;
 import classes.responseTypes.InsomniaResponse;
@@ -24,7 +27,7 @@ public class Main {
  */
     public static void main(String[] args) throws Exception{
         HTTPClient client = new HTTPClient("localhost", 8081);
-        InsomniaRequest httpRequest = new InsomniaRequest();
+        /*InsomniaRequestBase httpRequest = new InsomniaRequestBase();
         httpRequest.addHeader("Host", "localhost:8081");
         httpRequest.addHeader("User-Agent", "wagadoudou/2022.0.0.1");
         httpRequest.setMethod(HTTPMethods.POST);
@@ -42,6 +45,23 @@ public class Main {
         BufferedReader body = new BufferedReader(new InputStreamReader(response.getBodyStream()));
         for (String string : body.lines().toList()) {
             System.out.println(string);
-        }
+        }*/
+        byte[] body_req = "dasdkhasidsabdka".getBytes();
+        RequestFolder spring_Request = new RequestFolder("root").addRequest(
+            (HTTPRequestElement) (new InsomniaRequestBase()
+                .setId("POST1")
+                .setName("Test POST to Spring")
+                .addHeader("Host" , "localhost:8081")
+                .addHeader("User-Agent", "wagadoudou/2022.0.0.1")
+                .setMethod(HTTPMethods.POST)
+                .setPath("/testPost")
+                .setBody(body_req)
+                .addHeader("Content-Type", "text/plain")
+                .addHeader("Content-Length", String.valueOf(body_req.length)))
+        ).addRequest((HTTPRequestElement) (new InsomniaRequestBase()
+                .setId("GET1")
+                .addHeader("Host" , "localhost:8081")
+                .addHeader("User-Agent", "wagadoudou/2022.0.0.1"))
+        );
     }
 }

@@ -6,14 +6,16 @@ public class WGDGUrl_Base {
     public String getHostname() {
         return hostname;
     }
-    public void setHostname(String hostname) {
+    public WGDGUrl_Base setHostname(String hostname) {
         this.hostname = hostname;
+        return this;
     }
     public int getPort() {
         return port;
     }
-    public void setPort(int port) {
+    public WGDGUrl_Base setPort(int port) {
         this.port = port;
+        return this;
     }
     public WGDGUrl_Base(String hostname, int port) {
         this.setHostname(hostname);

@@ -12,8 +12,9 @@ public class HTTPRequestHeader {
     public HTTPQueryParams getQueryParams() {
         return queryParams;
     }
-    public void setQueryParams(HTTPQueryParams queryParams) {
+    public HTTPRequestHeader setQueryParams(HTTPQueryParams queryParams) {
         this.queryParams = queryParams;
+        return this;
     }
     public String getMethod() {
         if(method == null || method.compareTo("") == 0 ){
@@ -23,8 +24,9 @@ public class HTTPRequestHeader {
         }
         
     }
-    public void setMethod(String method) {
+    public HTTPRequestHeader setMethod(String method) {
         this.method = method;
+        return this;
     }
     public HTTPVersion getVersion() {
         if(version == null){
@@ -33,8 +35,9 @@ public class HTTPRequestHeader {
             return version;
         }
     }
-    public void setVersion(HTTPVersion version) {
+    public HTTPRequestHeader setVersion(HTTPVersion version) {
         this.version = version;
+        return this;
     }
     public String getPath() {
         if(this.path == null || this.path.compareTo("") == 0){
@@ -43,11 +46,13 @@ public class HTTPRequestHeader {
             return path;
         }
     }
-    public void setPath(String path) {
+    public HTTPRequestHeader setPath(String path) {
         this.path = path;
+        return this;
     }
-    public void setMethod(HTTPMethods methods){
+    public HTTPRequestHeader setMethod(HTTPMethods methods){
         this.setMethod(methods.toString());
+        return this;
     }
     public HTTPRequestHeader() {
         this.setQueryParams(new HTTPQueryParams());

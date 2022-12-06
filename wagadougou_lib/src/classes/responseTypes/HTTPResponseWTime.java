@@ -6,14 +6,16 @@ public class HTTPResponseWTime extends HTTPResponse {
     public long getStartTime() {
         return startTime;
     }
-    public void setStartTime(long startTime) {
+    public HTTPResponseWTime setStartTime(long startTime) {
         this.startTime = startTime;
+        return this;
     }
     public long getEndTime() {
         return endTime;
     }
-    public void setEndTime(long endTime) {
+    public HTTPResponseWTime setEndTime(long endTime) {
         this.endTime = endTime;
+        return this;
     }
     public long getDuration(){
         return this.getEndTime() - this.getStartTime();

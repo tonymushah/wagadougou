@@ -15,8 +15,9 @@ public class InsomniaResponse extends HTTPResponse {
         return timeline;
     }
 
-    public void setTimeline(OutputStream timeline) {
+    public InsomniaResponse setTimeline(OutputStream timeline) {
         this.timeline = timeline;
+        return this;
     }
     public PrintStream getTimeLine_PrintStream(){
         return new PrintStream(this.timeline);
@@ -32,14 +33,16 @@ public class InsomniaResponse extends HTTPResponse {
     public long getStartTime() {
         return startTime;
     }
-    public void setStartTime(long startTime) {
+    public InsomniaResponse setStartTime(long startTime) {
         this.startTime = startTime;
+        return this;
     }
     public long getEndTime() {
         return endTime;
     }
-    public void setEndTime(long endTime) {
+    public InsomniaResponse setEndTime(long endTime) {
         this.endTime = endTime;
+        return this;
     }
     public long getDuration(){
         return this.getEndTime() - this.getStartTime();

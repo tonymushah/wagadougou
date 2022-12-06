@@ -6,7 +6,7 @@ import java.net.UnknownHostException;
 
 import javax.net.SocketFactory;
 
-import classes.requestTypes.HTTPRequest;
+import classes.requestTypes.base.HTTPRequest;
 import classes.responseTypes.HTTPResponse;
 import classes.utils.WGDGUrl_Base;
 
@@ -15,8 +15,9 @@ public class HTTPClient extends AbstractClient{
     public SocketFactory getSocketFactory() {
         return socketFactory;
     }
-    public void setSocketFactory(SocketFactory socketFactory) {
+    public HTTPClient setSocketFactory(SocketFactory socketFactory) {
         this.socketFactory = socketFactory;
+        return this;
     }
     public HTTPClient(WGDGUrl_Base url) {
         super(url);

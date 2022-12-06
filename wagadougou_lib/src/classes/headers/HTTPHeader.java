@@ -6,14 +6,16 @@ public class HTTPHeader {
     public String getContext() {
         return context;
     }
-    public void setContext(String context) {
+    public HTTPHeader setContext(String context) {
         this.context = context;
+        return this;
     }
     public String getValue() {
         return value;
     }
-    public void setValue(String value) {
+    public HTTPHeader setValue(String value) {
         this.value = value;
+        return this;
     }
     
     public HTTPHeader(String context, String value) {

@@ -20,36 +20,42 @@ public class HTTPResponse {
     public ArrayList<HTTPHeader> getHeaders() {
         return headers;
     }
-    public void setHeaders(ArrayList<HTTPHeader> headers) {
+    public HTTPResponse setHeaders(ArrayList<HTTPHeader> headers) {
         this.headers = headers;
+        return this;
     }
     public byte[] getBody() {
         return body;
     }
-    public void setBody(byte[] body) {
+    public HTTPResponse setBody(byte[] body) {
         this.body = body;
+        return this;
     }
     
     public InetAddress getTarget() {
         return target;
     }
-    public void setTarget(InetAddress target) {
+    public HTTPResponse setTarget(InetAddress target) {
         this.target = target;
+        return this;
     }
     public HTTPResponseHeader getResponseHeader() {
         return responseHeader;
     }
-    public void setResponseHeader(HTTPResponseHeader responseHeader) {
+    public HTTPResponse setResponseHeader(HTTPResponseHeader responseHeader) {
         this.responseHeader = responseHeader;
+        return this;
     }
     public HTTPResponse(){
         this.setHeaders(new ArrayList<HTTPHeader>());
     }
-    public void setResponseHeader(String input) throws Exception{
+    public HTTPResponse setResponseHeader(String input) throws Exception{
         this.setResponseHeader(new HTTPResponseHeader(input));
+        return this;
     }
-    public void addHeader(HTTPHeader header){
+    public HTTPResponse addHeader(HTTPHeader header){
         this.headers.add(header);
+        return this;
     }
     public HTTPResponse(ArrayList<HTTPHeader> headers, HTTPResponseHeader responseHeader, byte[] body) {
         this.headers = headers;
