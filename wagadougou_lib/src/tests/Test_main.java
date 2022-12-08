@@ -9,8 +9,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
-import classes.utils.HTTPQueryParam;
-import classes.utils.HTTPQueryParams;
+import mg.wagadougou.lib.classes.utils.HTTPQueryParam;
+import mg.wagadougou.lib.classes.utils.HTTPQueryParams;
 
 public class Test_main {
     public static void main(String[] args) throws IOException {

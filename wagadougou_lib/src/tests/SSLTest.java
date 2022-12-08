@@ -6,11 +6,11 @@ import java.io.InputStreamReader;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
-import classes.headers.HTTPHeader;
-import classes.requestTypes.base.HTTPRequest;
-import classes.requestTypes.element.HTTPRequestDefault;
-import classes.responseTypes.HTTPResponse;
-import enums.HTTPVersion;
+import mg.wagadougou.lib.classes.headers.HTTPHeader;
+import mg.wagadougou.lib.classes.requestTypes.base.HTTPRequest;
+import mg.wagadougou.lib.classes.requestTypes.element.HTTPRequestDefault;
+import mg.wagadougou.lib.classes.responseTypes.HTTPResponse;
+import mg.wagadougou.lib.enums.HTTPVersion;
 
 public class SSLTest {
     public static void main(String[] args) throws Exception {
