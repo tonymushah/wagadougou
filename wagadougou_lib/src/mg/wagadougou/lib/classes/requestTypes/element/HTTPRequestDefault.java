@@ -40,7 +40,6 @@ public class HTTPRequestDefault extends HTTPRequestElement {
         PrintStream out = new PrintStream(target.getOutputStream());
 
         out.println(this.getRequestHeader());
-        //System.out.println(this.getRequestHeader());
 
         if(this.getHeaders() != null){
             for (HTTPHeader header : this.getHeaders()) {
@@ -72,7 +71,6 @@ public class HTTPRequestDefault extends HTTPRequestElement {
                     body.write(response_string.get(i).getBytes());
                 }
             }
-            
         }
         response.setBody(body.toByteArray());
         response.setTarget(target.getInetAddress());
