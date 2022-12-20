@@ -10,7 +10,7 @@ import com.googlecode.lanterna.gui2.Panel;
 import classes.panels.HeaderPanel;
 import mg.wagadougou.lib.classes.headers.HTTPHeader;
 
-public class HeadersWindow extends BasicWindow {
+public class HeadersWindow extends Panel {
     private ArrayList<HTTPHeader> headers;
     private ArrayList<HeaderPanel> headerPanels;
 
@@ -51,7 +51,7 @@ public class HeadersWindow extends BasicWindow {
     }
 
     public HeadersWindow(ArrayList<HTTPHeader> headers) {
-        super("Headers");
+        
         this.setHeaders(headers);
         this.generate_headerPanels();
         this.start_graph();
@@ -100,7 +100,6 @@ public class HeadersWindow extends BasicWindow {
                 this_.create_header();
             }
         }));
-        this.setComponent(contentPanel);
         return this;
     }
 }

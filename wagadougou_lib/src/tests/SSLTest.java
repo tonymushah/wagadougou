@@ -2,17 +2,14 @@ package tests;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
-import mg.wagadougou.lib.classes.headers.HTTPHeader;
 import mg.wagadougou.lib.classes.requestTypes.base.HTTPRequest;
-import mg.wagadougou.lib.classes.requestTypes.element.HTTPRequestDefault;
 import mg.wagadougou.lib.classes.requestTypes.element.InsomniaRequestBase;
-import mg.wagadougou.lib.classes.responseTypes.HTTPResponse;
-import mg.wagadougou.lib.classes.responseTypes.InsomniaResponse;
 import mg.wagadougou.lib.enums.HTTPVersion;
 
 public class SSLTest {
@@ -21,18 +18,30 @@ public class SSLTest {
         HTTPRequest request = new InsomniaRequestBase("/manga", "GET");
         request.addHeader("Host", "api.mangadex.org");
         request.addQueryParams("title", "tonikaku");
-        request.addHeader("user-agent", "wagadougou/2022.0.0.1");
         request.addHeader("x-random", "helloooo world");
         request.addHeader("accept", "*/*");
         request.setHTTPVersion(HTTPVersion.HTTP1_1);
         SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
         SSLSocket target = (SSLSocket) factory.createSocket(address, 443);
         target.startHandshake();
-        InsomniaResponse response2 = (InsomniaResponse) request.send(target);
-        target.close();
-        for (String line : (new BufferedReader(new InputStreamReader(response2.getTimeline()))).lines().toList()) {
-            System.out.println(line);
+        PrintWriter out = new PrintWriter(target.getOutputStream());
+        BufferedReader in = new BufferedReader(new InputStreamReader(target.getInputStream()));
+        
+        // print request 
+        out.println("GET /manga?title=tonikaku HTTP/1.1");
+        out.println("Host: api.mangadex.org");
+        out.println("x-random: helloooo world");
+        out.println("accept: */*");
+        out.println();
+        out.flush();
+
+        target.shutdownOutput();
+
+        // showing the response
+
+        for (String getted : in.lines().toList()) {
+            System.out.println(getted);
         }
-        System.out.println(( response2).getDuration() + " ms");
+        target.close();
     }
 }

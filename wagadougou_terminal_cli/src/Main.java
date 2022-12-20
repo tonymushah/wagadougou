@@ -35,7 +35,7 @@ public class Main {
             WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
 
             textGUI.addWindowAndWait(new HeadersWindow(headers));
-
+            textGUI.addWindowAndWait(new HeadersWindow(headers));
         } catch (Exception e) {
             //TODO: handle exception
             e.printStackTrace();
