@@ -39,12 +39,14 @@ public class RequestCollectionTreeItem extends TreeItem<String> {
 
     public void deleteElement(HTTPRequestElement element) {
         try {
-            this.to_use.removeFolderByIDLevel0(element.getId());
+            this.to_use.removeRequestByIDLevel0(element.getId());
         } catch (Exception e) {
             // TODO: handle exception
+            e.printStackTrace();
         } finally {
             this.refresh();
         }
+        System.out.println("suidhsad");
     }
 
     public void deleteFolder(RequestFolder folder) {
