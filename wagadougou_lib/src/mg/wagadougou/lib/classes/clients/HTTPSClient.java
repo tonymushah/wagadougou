@@ -7,11 +7,15 @@ import java.net.UnknownHostException;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import mg.wagadougou.lib.classes.requestTypes.base.HTTPRequest;
 import mg.wagadougou.lib.classes.responseTypes.HTTPResponse;
 import mg.wagadougou.lib.classes.utils.WGDGUrl_Base;
 
 public class HTTPSClient extends AbstractClient {
+    public final String type = "HTTPS";
+    @JsonIgnore
     public SSLSocketFactory getSocketFactory() {
         return (SSLSocketFactory) SSLSocketFactory.getDefault();
     }

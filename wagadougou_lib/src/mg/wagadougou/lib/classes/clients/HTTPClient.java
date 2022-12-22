@@ -6,11 +6,15 @@ import java.net.UnknownHostException;
 
 import javax.net.SocketFactory;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import mg.wagadougou.lib.classes.requestTypes.base.HTTPRequest;
 import mg.wagadougou.lib.classes.responseTypes.HTTPResponse;
 import mg.wagadougou.lib.classes.utils.WGDGUrl_Base;
 
 public class HTTPClient extends AbstractClient{
+    public final String type = "HTTP";
+    @JsonIgnore
     public SocketFactory getSocketFactory() {
         return SocketFactory.getDefault();
     }

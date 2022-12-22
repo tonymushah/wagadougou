@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import mg.wagadougou.lib.classes.requestTypes.base.HTTPRequest;
 import mg.wagadougou.lib.classes.responseTypes.HTTPResponse;
 import mg.wagadougou.lib.classes.utils.WGDGUrl_Base;
@@ -18,6 +20,7 @@ public abstract class AbstractClient implements Serializable{
         this.url = url;
         return this;
     }
+    @JsonIgnore
     public abstract Socket getSocket() throws UnknownHostException, IOException;
     public AbstractClient(WGDGUrl_Base url){
         this.setUrl(url);
