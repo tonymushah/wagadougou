@@ -1,5 +1,6 @@
-package frontend.classes;
+package frontend.classes.panes;
 
+import frontend.classes.Wagadougou_App;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -22,6 +23,8 @@ public class HTTPClientPane extends GridPane{
 
     public void setClient(AbstractClient client) {
         this.client = client;
+        // [ ] Make the wagadougou app client as an observable item
+        Wagadougou_App.setTo_useClient(client);
     }
 
     public WGDGUrl_Base getUrl_Base() {

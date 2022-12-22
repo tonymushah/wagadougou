@@ -1,15 +1,11 @@
-package frontend.classes;
+package frontend.classes.panes;
 
-import javafx.embed.swing.JFXPanel;
-import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -122,6 +118,15 @@ public class Request_Pane extends GridPane {
     }
     public Node bodyPane(){
         final HTTPRequest request = this.to_use;
+        final GridPane root = new GridPane();
+        TextField content_length;
+        try {
+            content_length = new TextField(this.to_use.getBody().length + "");
+        } catch (Exception e) {
+            //TODO: handle exception
+            content_length = new TextField(0 + "");
+        }
+        content_length.setEditable(false);
         TextArea body;
         try {
             body = new TextArea(new String(this.to_use.getBody()));
@@ -130,15 +135,20 @@ public class Request_Pane extends GridPane {
             body = new TextArea("");
         }
         final TextArea body_ = body;
+        final TextField content_length_ = content_length;
         body.setOnKeyTyped(new EventHandler<KeyEvent>() {
 
             @Override
             public void handle(KeyEvent arg0) {
                 // TODO Auto-generated method stub
                 request.setBody(body_.getText().getBytes());
+                content_length_.setText(String.valueOf(request.getBody().length));
             }
             
         });
-        return body;
+        root.add(new Label("Content-Lenght : "), 0, 0);
+        root.add(content_length, 1, 0);
+        root.add(body, 0, 1, 2, 1);
+        return root;
     }
 }

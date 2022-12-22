@@ -1,4 +1,4 @@
-package frontend.classes;
+package frontend.classes.panes;
 
 import java.io.UnsupportedEncodingException;
 
