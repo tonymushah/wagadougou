@@ -3,6 +3,7 @@ package mg.wagadougou.lib.classes.responseTypes;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ import mg.wagadougou.lib.classes.headers.HTTPHeader;
 import mg.wagadougou.lib.classes.headers.HTTPResponseHeader;
 
 
-public class HTTPResponse {
+public class HTTPResponse implements Serializable{
     private InetAddress target;
     private ArrayList<HTTPHeader> headers;
     private HTTPResponseHeader responseHeader;

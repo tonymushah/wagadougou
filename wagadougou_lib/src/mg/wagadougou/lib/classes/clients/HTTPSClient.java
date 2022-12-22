@@ -12,27 +12,15 @@ import mg.wagadougou.lib.classes.responseTypes.HTTPResponse;
 import mg.wagadougou.lib.classes.utils.WGDGUrl_Base;
 
 public class HTTPSClient extends AbstractClient {
-    private SSLSocketFactory socketFactory;
-
     public SSLSocketFactory getSocketFactory() {
-        return socketFactory;
+        return (SSLSocketFactory) SSLSocketFactory.getDefault();
     }
 
-    public HTTPSClient setSocketFactory(SSLSocketFactory socketFactory) {
-        this.socketFactory = socketFactory;
-        return this;
-    }
      public HTTPSClient(WGDGUrl_Base url) {
         super(url);
-        this.setSocketFactory((SSLSocketFactory) SSLSocketFactory.getDefault());
-    }
-    public HTTPSClient(WGDGUrl_Base url, SSLSocketFactory socketFactory) {
-        super(url);
-        this.setSocketFactory(socketFactory);
     }
     public HTTPSClient(String hostname, int port){
         super(new WGDGUrl_Base(hostname, port));
-        this.setSocketFactory((SSLSocketFactory) SSLSocketFactory.getDefault());
     }
     @Override
     public Socket getSocket() throws UnknownHostException, IOException{

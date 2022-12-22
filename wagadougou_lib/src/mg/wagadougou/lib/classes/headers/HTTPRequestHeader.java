@@ -1,10 +1,12 @@
 package mg.wagadougou.lib.classes.headers;
 
+import java.io.Serializable;
+
 import mg.wagadougou.lib.classes.utils.HTTPQueryParams;
 import mg.wagadougou.lib.enums.HTTPMethods;
 import mg.wagadougou.lib.enums.HTTPVersion;
 
-public class HTTPRequestHeader {
+public class HTTPRequestHeader implements Serializable{
     private HTTPQueryParams queryParams;
     private String method;
     private HTTPVersion version;

@@ -58,7 +58,7 @@ public class HTTPRequestWTimeline extends HTTPRequestElement {
         if(this.getBody() != null){
             out.writeBytes(this.getBody());
         }
-        timeline.println("// flushing output stream");
+        timeline.println("\n// flushing output stream");
         out.flush();
         timeline.println("// shuting down output stream");
         target.shutdownOutput();

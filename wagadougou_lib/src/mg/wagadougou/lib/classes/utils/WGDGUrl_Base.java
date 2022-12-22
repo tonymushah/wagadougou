@@ -1,6 +1,8 @@
 package mg.wagadougou.lib.classes.utils;
 
-public class WGDGUrl_Base {
+import java.io.Serializable;
+
+public class WGDGUrl_Base implements Serializable{
     private String hostname;
     private int port;
     public String getHostname() {

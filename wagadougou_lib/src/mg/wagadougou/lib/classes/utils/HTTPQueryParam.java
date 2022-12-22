@@ -1,10 +1,11 @@
 package mg.wagadougou.lib.classes.utils;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
-public class HTTPQueryParam {
+public class HTTPQueryParam implements Serializable{
     private String name;
     private String value;
     public String getName() {

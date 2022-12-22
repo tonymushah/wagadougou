@@ -1,6 +1,6 @@
 package mg.wagadougou.lib.enums;
 
-public enum HTTPMethods {
+public enum HTTPMethods{
     GET,
     POST,
     DELETE,

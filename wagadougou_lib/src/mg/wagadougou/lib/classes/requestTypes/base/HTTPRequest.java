@@ -1,5 +1,6 @@
 package mg.wagadougou.lib.classes.requestTypes.base;
 
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ import mg.wagadougou.lib.enums.HTTPVersion;
 > Accept: *
  */
 
-public abstract class HTTPRequest {
+public abstract class HTTPRequest implements Serializable{
     private HTTPRequestHeader requestHeader;
     private ArrayList<HTTPHeader> headers;
     private byte[] body;

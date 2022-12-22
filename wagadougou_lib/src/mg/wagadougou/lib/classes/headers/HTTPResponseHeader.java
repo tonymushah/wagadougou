@@ -1,8 +1,10 @@
 package mg.wagadougou.lib.classes.headers;
 
+import java.io.Serializable;
+
 import mg.wagadougou.lib.enums.HTTPVersion;
 
-public class HTTPResponseHeader {
+public class HTTPResponseHeader implements Serializable{
     private HTTPVersion version;
     private int status_code;
     private String result;

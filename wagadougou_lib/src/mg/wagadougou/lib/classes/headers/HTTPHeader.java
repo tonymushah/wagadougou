@@ -1,6 +1,8 @@
 package mg.wagadougou.lib.classes.headers;
 
-public class HTTPHeader {
+import java.io.Serializable;
+
+public class HTTPHeader implements Serializable{
     private String context;
     private String value;
     public String getContext() {

@@ -1,10 +1,12 @@
 package mg.wagadougou.lib.classes.utils;
 
+import java.io.Serializable;
+
 import mg.wagadougou.lib.classes.clients.AbstractClient;
 import mg.wagadougou.lib.classes.clients.HTTPClient;
 import mg.wagadougou.lib.classes.clients.HTTPSClient;
 
-public class UrlParser {
+public class UrlParser implements Serializable{
     private AbstractClient client;
     private WGDGUrl_Base url_Base;
     private String path;

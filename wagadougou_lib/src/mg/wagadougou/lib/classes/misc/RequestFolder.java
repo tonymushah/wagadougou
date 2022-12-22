@@ -1,11 +1,12 @@
 package mg.wagadougou.lib.classes.misc;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import mg.wagadougou.lib.classes.requestTypes.base.HTTPRequestElement;
 import mg.wagadougou.lib.exections.ElementNotFoundException;
 
-public class RequestFolder {
+public class RequestFolder implements Serializable{
     private String name;
     private String id;
     private String doc;

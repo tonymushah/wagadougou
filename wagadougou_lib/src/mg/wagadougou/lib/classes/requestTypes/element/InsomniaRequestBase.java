@@ -61,7 +61,7 @@ public class InsomniaRequestBase extends HTTPRequestElement {
             out.writeBytes(this.getBody());
             timeline.write(this.getBody());
         }
-        timeline.println("// flushing output stream");
+        timeline.println("\n// flushing output stream");
         out.flush();
         timeline.println("// shuting down output stream");
         target.shutdownOutput();
